@@ -1,0 +1,22 @@
+# Data files (These are too big for GitHub)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Python environment and cache
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VS Code settings
+.vscode/
+
+# Model artifacts (saved models)
+models/*.pkl
+models/*.joblib
