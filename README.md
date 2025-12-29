@@ -39,6 +39,7 @@ Explain model predictions using SHAP
 Provide insights suitable for business and regulatory contexts
 
 📂 Project Structure
+
 fraud-detection/
 ├── data/
 │ ├── raw/ # Original datasets (excluded from Git)
