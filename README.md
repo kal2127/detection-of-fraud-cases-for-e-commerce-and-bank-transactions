@@ -1,78 +1,88 @@
-# detection-of-fraud-cases-for-e-commerce-and-bank-transactions
+Fraud Detection for E-Commerce and Banking Transactions
+
 Project Overview
 
-Fraud detection is a critical problem in financial and e-commerce systems due to the
-high cost of fraudulent activities and the highly imbalanced nature of transaction data.
-This project aims to build robust and explainable machine learning models that can
-effectively identify fraudulent transactions while minimizing disruption to legitimate
-customers.
+Fraud detection is a critical challenge in financial and e-commerce systems due to the
+significant financial losses caused by fraudulent transactions and the highly
+imbalanced nature of fraud data. In such datasets, fraudulent transactions represent
+only a small fraction of total transactions, making traditional evaluation metrics
+like accuracy unreliable.
 
-The project follows an end-to-end machine learning workflow, including exploratory
-data analysis, feature engineering, class imbalance handling, model training, and
-evaluation using appropriate metrics for imbalanced classification.
+This project aims to build an end-to-end fraud detection pipeline that:
+
+Identifies fraudulent transactions effectively
+
+Minimizes disruption to legitimate customers
+
+Provides transparent and explainable model decisions
+
+The project follows best practices in data analysis, machine learning modeling,
+imbalance handling, and model explainability.
 
 This work is part of the 10 Academy – Artificial Intelligence Mastery Program
 (Week 5 & 6 Challenge).
 
 🎯 Project Objectives
 
-Explore and understand fraud-related transaction datasets
+Perform exploratory data analysis (EDA) on fraud datasets
 
-Perform data cleaning and exploratory data analysis (EDA)
+Engineer meaningful temporal, behavioral, and geolocation features
 
-Engineer meaningful temporal, behavioral, and geolocation-based features
-
-Analyze and handle severe class imbalance
+Handle severe class imbalance appropriately
 
 Train and evaluate machine learning models for fraud detection
 
-Compare baseline and ensemble models using appropriate metrics
+Compare baseline and ensemble models
 
-Select a model that balances fraud detection performance and customer experience
+Explain model predictions using SHAP
+
+Provide insights suitable for business and regulatory contexts
 
 📂 Project Structure
 fraud-detection/
 ├── data/
-│   ├── raw/                     # Original datasets (not tracked)
-│   └── processed/               # Cleaned & feature-engineered datasets
+│ ├── raw/ # Original datasets (excluded from Git)
+│ └── processed/ # Cleaned and feature-engineered datasets
 ├── notebooks/
-│   ├── eda-fraud-data.ipynb
-│   ├── eda-creditcard.ipynb
-│   ├── feature-engineering.ipynb
-│   ├── modeling.ipynb
-│   └── shap-explainability.ipynb
-├── models/                      # Saved trained models
-├── src/                         # Reusable scripts (optional)
+│ ├── eda-fraud-data.ipynb
+│ ├── eda-creditcard.ipynb
+│ ├── feature-engineering.ipynb
+│ ├── modeling.ipynb
+│ └── shap-explainability.ipynb
+├── models/ # Saved trained models
+├── src/ # Optional reusable scripts
 ├── requirements.txt
 ├── README.md
 └── .gitignore
 
 📊 Datasets
-1️⃣ Fraud_Data.csv (E-Commerce Transactions)
+1️⃣ E-Commerce Fraud Dataset (Fraud_Data.csv)
 
-User demographics and transaction details
+User demographic information
 
-Device, browser, source, IP address
+Transaction details (purchase value, device, browser, source)
 
-Timestamped signup and purchase events
+Signup and purchase timestamps
+
+IP address information
 
 Target variable: class
 
-0 → Non-fraud
+0 → Legitimate transaction
 
-1 → Fraud
+1 → Fraudulent transaction
 
-2️⃣ IpAddress_to_Country.csv
+2️⃣ IP-to-Country Dataset (IpAddress_to_Country.csv)
 
 Maps IP address ranges to countries
 
 Used for geolocation-based fraud analysis
 
-3️⃣ creditcard.csv (Bank Transactions)
+3️⃣ Credit Card Fraud Dataset (creditcard.csv)
 
-Anonymized credit card transactions
+Anonymized banking transactions
 
-Highly imbalanced fraud dataset
+Extremely imbalanced fraud labels
 
 Target variable: Class
 
@@ -81,23 +91,17 @@ Target variable: Class
 
 Verified data types and timestamp formats
 
-Handled duplicates and missing values
+Handled missing values and duplicates
 
 Converted IP addresses to integer format for range-based mapping
 
 ✔ Exploratory Data Analysis (EDA)
 
-Identified severe class imbalance (≈ 90.6% non-fraud, 9.4% fraud)
-
 Conducted univariate and bivariate analysis
 
-Analyzed fraud patterns across purchase value, browser, source, and country
+Identified severe class imbalance (≈ 90.6% non-fraud, 9.4% fraud)
 
-✔ Geolocation Analysis
-
-Mapped transactions to countries using IP address ranges
-
-Observed significant variation in fraud rates across countries
+Analyzed relationships between fraud and purchase value, browser, source, and country
 
 ✔ Feature Engineering
 
@@ -107,24 +111,22 @@ hour_of_day
 
 day_of_week
 
-User-level transaction frequency
+User transaction frequency
 
-Geolocation features derived from IP mapping
+Country feature derived from IP mapping
 
 ✔ Class Imbalance Analysis
 
-Confirmed that accuracy is not a reliable metric
+Confirmed that accuracy is not suitable for fraud detection
 
-Planned resampling strategy for modeling stage
+Identified the need for resampling and precision-recall-based evaluation
 
 🤖 Task-2: Model Building & Evaluation
 ✔ Data Preparation
 
-Stratified train-test split to preserve fraud ratio
+Stratified train-test split to preserve class distribution
 
-Separation of features (X) and target (y)
-
-Documented class distribution before resampling
+Separation of features (X) and target variable (y)
 
 ✔ Data Transformation
 
@@ -132,7 +134,7 @@ One-Hot Encoding for categorical features
 
 Feature scaling using StandardScaler
 
-Transformations fitted on training data only to avoid data leakage
+All transformations fitted on training data only to prevent data leakage
 
 ✔ Handling Class Imbalance
 
@@ -140,22 +142,20 @@ Applied SMOTE to training data only
 
 Documented class distribution before and after resampling
 
-Justified SMOTE as suitable for minority fraud class learning
+Justified SMOTE as appropriate for minority fraud learning
 
 ✔ Models Trained
-1️⃣ Logistic Regression (Baseline)
+1️⃣ Logistic Regression (Baseline Model)
 
-Simple and interpretable baseline model
+Simple and interpretable
 
-Used to understand feature impact and establish reference performance
+Used as a benchmark for performance comparison
 
 2️⃣ Random Forest (Ensemble Model)
 
-Captures non-linear relationships
+Captures non-linear feature interactions
 
-More robust to complex fraud patterns
-
-Demonstrated improved performance over baseline
+Better performance on complex fraud patterns
 
 ✔ Model Evaluation Metrics
 
@@ -171,52 +171,101 @@ Area Under Precision-Recall Curve (AUC-PR)
 
 Confusion Matrix
 
-Accuracy was intentionally avoided as a primary metric.
+Accuracy was not used as a primary evaluation metric.
 
-✔ Model Comparison & Selection
+✔ Model Selection
 
-Logistic Regression provided interpretability but limited performance
+Logistic Regression offered interpretability but limited performance
 
-Random Forest achieved better recall and F1-score for fraud detection
+Random Forest achieved stronger recall and F1-score
 
 Trade-off between explainability and predictive power was analyzed
 
-Random Forest selected as the preferred model for fraud detection
+Random Forest was selected as the preferred model
 
-⚙️ Environment Setup
-Requirements
+🔎 Task-3: Model Explainability (SHAP)
+✔ Explainability Goals
 
-All dependencies are listed in requirements.txt.
+Understand why transactions are classified as fraud
 
-Install with:
+Identify key drivers of fraud predictions
 
+Provide transparency for business and regulatory requirements
+
+✔ SHAP Analysis
+
+Global feature importance using SHAP summary plots
+
+Individual prediction explanations using SHAP waterfall/force plots
+
+Feature effect analysis using SHAP dependence plots
+
+✔ Key Insights
+
+High purchase value and short time since signup significantly increase fraud risk
+
+Geolocation and behavioral features play a strong role in predictions
+
+Model decisions align with real-world fraud patterns
+
+⚙️ Setup Instructions
+1️⃣ Create a Virtual Environment (Recommended)
+python -m venv venv
+
+Activate:
+
+Windows
+
+venv\Scripts\activate
+
+Linux / macOS
+
+source venv/bin/activate
+
+2️⃣ Install Dependencies
 pip install -r requirements.txt
 
-Recommended Virtual Environment
-python -m venv venv
-venv\Scripts\activate   # Windows
+3️⃣ Run Notebooks
+
+Launch Jupyter:
+
+jupyter notebook
+
+Run notebooks in this order:
+
+eda-fraud-data.ipynb
+
+feature-engineering.ipynb
+
+modeling.ipynb
+
+shap-explainability.ipynb
 
 📈 Key Takeaways
 
-Fraud detection requires careful handling of class imbalance
+Fraud detection requires specialized handling of imbalanced data
 
-Precision-Recall based metrics are more informative than accuracy
+Precision-Recall metrics are essential for proper evaluation
 
-Ensemble models outperform linear baselines for complex fraud patterns
+Ensemble models outperform linear baselines in fraud scenarios
 
-Model decisions must balance fraud prevention and customer experience
+Explainability is critical for trust and deployment readiness
 
-🚀 Next Steps (Task-3)
+🚀 Future Improvements
 
-Model explainability using SHAP
+Hyperparameter tuning for ensemble models
 
-Feature importance interpretation
+Cost-sensitive learning
 
-Business-oriented insights and recommendations
+Real-time fraud detection pipeline
 
-Final model reporting and documentation
+Deployment using REST APIs
 
 👤 Author
 
 Kalkidan Tesfaye
 10 Academy – Artificial Intelligence Mastery Program
+
+📄 License
+
+This project is developed for educational purposes as part of the 10 Academy program.
