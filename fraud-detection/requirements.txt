@@ -1,11 +1,23 @@
+# Data Manipulation
 numpy
 pandas
+scipy
+
+# Machine Learning Models & Utilities
+scikit-learn
+xgboost
+lightgbm
+imbalanced-learn
+joblib
+
+# Model Explainability
+shap
+
+# Visualization
 matplotlib
 seaborn
-scikit-learn
-imbalanced-learn
-shap
+
+# Environment & Notebooks
 jupyter
 notebook
 ipykernel
-scipy
